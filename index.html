@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
+
 <body>
     <div class="container">
         <header>
@@ -23,9 +25,99 @@
         <section class="section">
             <h2><i class="fas fa-code"></i> Выполненные проекты</h2>
             <div class="grid">
-                <a href="https://6967b977c452530d1521669f--gilded-piroshki-c34b67.netlify.app/" target="_blank" rel="noopener noreferrer" class="card">
+                <a href="https://tamga-production.up.railway.app/#/login" target="_blank" rel="noopener noreferrer"
+                    class="card">
+                    <h3>Тамга Сервис</h3>
+                    <p>CRM-система для полиграфии: заказы, склад, сотрудники, инциденты, задачи, уроки и зарплата.</p>
+
+                    <h4>Возможности</h4>
+                    <ul>
+                        <li>Управление заказами и этапами производства</li>
+                        <li>Склад материалов и журнал движений</li>
+                        <li>Учет сотрудников и ролей (director, manager, designer, master, assistant)</li>
+                        <li>Кадры: смены, инциденты, штрафы</li>
+                        <li>Журнал штрафов (фильтры по датам/сотруднику, сумма удержаний)</li>
+                        <li>Задачи сотрудникам: дневные и недельные</li>
+                        <li>Уроки: YouTube + фото (ссылкой или загрузкой)</li>
+                        <li>Зарплата: ежемесячный расчет</li>
+                        <li>Директорский финансовый дашборд + экспорт CSV</li>
+                    </ul>
+
+                    <div class="card-gallery" aria-label="Скриншоты проекта Тамга Сервис">
+                        <img src="img/crm.png" alt="Тамга Сервис — CRM, экран 1" loading="lazy">
+                        <img src="img/crm1.png" alt="Тамга Сервис — CRM, экран 2" loading="lazy">
+                        <img src="img/crm2.png" alt="Тамга Сервис — CRM, экран 3" loading="lazy">
+                        <img src="img/crm3.png" alt="Тамга Сервис — CRM, экран 4" loading="lazy">
+                    </div>
+
+                    <div class="tech-stack">
+                        <strong>Backend:</strong> FastAPI &nbsp;|&nbsp;
+                        <strong>Database:</strong> PostgreSQL &nbsp;|&nbsp;
+                        <strong>Frontend:</strong> Vanilla JS + CSS
+                    </div>
+                    <span class="link-label">Посмотреть <i class="fas fa-external-link-alt"></i></span>
+                </a>
+                <div class="card">
+                    <h3>Админ-панель сервиса "Jardamchy GO"</h3>
+                    <p>Разработал единый центр управления для мультисервисного агрегатора (Такси, Доставка еды, Портер,
+                        Аптеки). Панель обеспечивает полный контроль над операционной деятельностью сервиса.</p>
+
+                    <h4>Ключевой функционал</h4>
+                    <ul>
+                        <li><strong>Дашборд и Аналитика:</strong> Визуализация KPI, графики продаж и активности в
+                            реальном времени.</li>
+                        <li><strong>Управление заказами:</strong> Мониторинг всех потоков заявок с фильтрацией по
+                            статусам, типам услуг и датам.</li>
+                        <li><strong>CRM-система:</strong> База данных водителей, кафе и аптек с возможностью
+                            редактирования профилей и статусов.</li>
+                        <li><strong>Управление контентом:</strong> Полноценный редактор меню для ресторанов (категории,
+                            фото, цены) и стоп-листы.</li>
+                        <li><strong>Финансовый блок:</strong> Управление балансами партнеров, история транзакций и
+                            настройка комиссий.</li>
+                        <li><strong>Маркетинг и Уведомления:</strong> Система массовых рассылок и переключатель режимов
+                            работы.</li>
+                    </ul>
+
+                    <div class="card-gallery" aria-label="Скриншоты админ-панели Jardamchy GO">
+                        <img src="img/admin.png" alt="Admin Panel - Screen 1" loading="lazy">
+                        <img src="img/admin1.png" alt="Admin Panel - Screen 2" loading="lazy">
+                        <img src="img/admin2.png" alt="Admin Panel - Screen 3" loading="lazy">
+                        <img src="img/admin3.png" alt="Admin Panel - Screen 4" loading="lazy">
+                    </div>
+
+                    <div class="tech-stack">
+                        <strong>Stack:</strong> HTML5 &nbsp;|&nbsp;
+                        <strong>Styling:</strong> CSS3 &nbsp;|&nbsp;
+                        <strong>Logic:</strong> Vanilla JavaScript (SPA)
+                    </div>
+                </div>
+                <a href="https://6967b977c452530d1521669f--gilded-piroshki-c34b67.netlify.app/" target="_blank"
+                    rel="noopener noreferrer" class="card">
                     <h3>TopRider</h3>
-                    <p>Интернет-магазин электровелосипедов, самокатов и байков. Сайт на HTML, JavaScript и Tailwind CSS.</p>
+                    <p>Интернет-магазин электровелосипедов, самокатов и байков. Сайт представляет собой каталог товаров
+                        с возможностью фильтрации, поиска, добавления в корзину и оформления заказа через WhatsApp.
+                        Встроенная админ-панель позволяет управлять контентом.</p>
+
+                    <h4>Основные возможности</h4>
+                    <ul>
+                        <li><strong>Каталог товаров:</strong> Просмотр товаров с фото, ценами и характеристиками.</li>
+                        <li><strong>Умный поиск:</strong> Поиск по названию товара.</li>
+                        <li><strong>Фильтрация:</strong> По категориям, цене, бренду, размеру рамы, мощности мотора и
+                            другим параметрам.</li>
+                        <li><strong>Корзина:</strong> Сохранение товаров в LocalStorage браузера.</li>
+                        <li><strong>Быстрый просмотр:</strong> Всплывающее окно с детальной информацией.</li>
+                        <li><strong>Оформление заказа:</strong> Генерация сообщения и отправка менеджеру в WhatsApp.
+                        </li>
+                        <li><strong>Адаптивность:</strong> Полная поддержка мобильных устройств.</li>
+                        <li><strong>Интеграции:</strong> Ссылки на социальные сети и 2GIS.</li>
+                    </ul>
+
+                    <div class="tech-stack">
+                        <strong>Stack:</strong> HTML &nbsp;|&nbsp;
+                        <strong>Styling:</strong> Tailwind CSS &nbsp;|&nbsp;
+                        <strong>Logic:</strong> JavaScript (Vanilla) &nbsp;|&nbsp;
+                        <strong>Storage:</strong> LocalStorage
+                    </div>
                     <div class="card-gallery" aria-label="Скриншоты проекта TopRider">
                         <img src="img/topriding.png" alt="TopRider — экран 1" loading="lazy">
                         <img src="img/topriding1.png" alt="TopRider — экран 2" loading="lazy">
@@ -45,7 +137,8 @@
                     </div>
                     <span class="link-label">Посмотреть <i class="fas fa-external-link-alt"></i></span>
                 </a>
-                <a href="https://finance-three-blush.vercel.app/" target="_blank" rel="noopener noreferrer" class="card">
+                <a href="https://finance-three-blush.vercel.app/" target="_blank" rel="noopener noreferrer"
+                    class="card">
                     <h3>Finance Monitor</h3>
                     <p>Проект для мониторинга финансов: динамика расходов и доходов, категории и наглядные метрики.</p>
                     <div class="card-gallery" aria-label="Скриншоты проекта Finance Monitor">
@@ -62,9 +155,10 @@
         <section class="section">
             <h2><i class="fas fa-tools"></i> Навыки</h2>
             <div class="skills-grid">
-                <div class="skill-item"><strong>Web:</strong> HTML, CSS, JS, React.js</div>
-                <div class="skill-item"><strong>Mobile:</strong> React Native, Expo (Кроссплатформенная разработка)</div>
-                <div class="skill-item"><strong>Tools:</strong> Git, Vercel, REST API</div>
+                <div class="skill-item"><strong>FrontEnd:</strong> HTML, CSS, JS, React.js, Tailwind CSS</div>
+                <div class="skill-item"><strong>BackEnd:</strong> Python, FastAPI, PostgreSQL, Интеграция AI
+                    (Telegram/WhatsApp боты, сайты)</div>
+                <div class="skill-item"><strong>Tools:</strong> Git, Vercel, REST API,Raliway,PosgreSQL</div>
             </div>
         </section>
 
@@ -76,5 +170,49 @@
             </div>
         </footer>
     </div>
+    <div id="lightbox">
+        <span class="lightbox-close">&times;</span>
+        <img id="lightbox-img" src="" alt="Enlarged Image">
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+            const closeBtn = document.querySelector('.lightbox-close');
+            const galleryImages = document.querySelectorAll('.card-gallery img');
+
+            galleryImages.forEach(img => {
+                img.addEventListener('click', (e) => {
+                    e.preventDefault(); // Stop link navigation
+                    e.stopPropagation(); // Stop bubbling to parent anchor
+                    lightboxImg.src = img.src;
+                    lightbox.classList.add('active');
+                    document.body.style.overflow = 'hidden'; // Disable scroll
+                });
+            });
+
+            const closeLightbox = () => {
+                lightbox.classList.remove('active');
+                document.body.style.overflow = ''; // Enable scroll
+            };
+
+            closeBtn.addEventListener('click', closeLightbox);
+
+            lightbox.addEventListener('click', (e) => {
+                if (e.target !== lightboxImg) {
+                    closeLightbox();
+                }
+            });
+
+            // Close with Escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+                    closeLightbox();
+                }
+            });
+        });
+    </script>
 </body>
+
 </html>
