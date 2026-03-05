@@ -1,0 +1,1122 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Админ — Портфолио</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Загружаем текущий projects.js как источник данных -->
+    <script src="projects.js"></script>
+    <style>
+        :root {
+            --bg: #0f172a;
+            --card: #1e293b;
+            --border: rgba(255, 255, 255, 0.1);
+            --accent: #61dafb;
+            --accent2: #38bdf8;
+            --text: #f1f5f9;
+            --muted: #94a3b8;
+            --danger: #f87171;
+            --success: #4ade80;
+            --warn: #fbbf24;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* TOP BAR */
+        .top-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .top-bar h1 {
+            font-size: 1.5rem;
+            background: linear-gradient(90deg, var(--accent), #dcdcdc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .top-bar-links {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+
+        .top-bar-links a {
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color .2s;
+        }
+
+        .top-bar-links a:hover {
+            color: var(--accent);
+        }
+
+        /* SAVE BANNER */
+        .save-banner {
+            display: none;
+            background: rgba(251, 191, 36, 0.1);
+            border: 1px solid rgba(251, 191, 36, 0.35);
+            border-radius: 12px;
+            padding: 14px 20px;
+            margin-bottom: 20px;
+            align-items: center;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+
+        .save-banner.visible {
+            display: flex;
+        }
+
+        .save-banner i {
+            color: var(--warn);
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .save-banner p {
+            flex: 1;
+            font-size: 0.88rem;
+            color: var(--warn);
+        }
+
+        .save-banner p strong {
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .save-banner p span {
+            opacity: .8;
+            font-size: .8rem;
+        }
+
+        /* BTNS */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 18px;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            font-size: 0.88rem;
+            font-weight: 600;
+            transition: all .2s;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: #0f172a;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent2);
+            transform: translateY(-1px);
+        }
+
+        .btn-save {
+            background: rgba(251, 191, 36, 0.2);
+            color: var(--warn);
+            border: 1px solid rgba(251, 191, 36, 0.4);
+        }
+
+        .btn-save:hover {
+            background: rgba(251, 191, 36, 0.35);
+            transform: translateY(-1px);
+        }
+
+        .btn-danger {
+            background: rgba(248, 113, 113, 0.15);
+            color: var(--danger);
+            border: 1px solid rgba(248, 113, 113, .3);
+        }
+
+        .btn-danger:hover {
+            background: rgba(248, 113, 113, .3);
+        }
+
+        .btn-edit {
+            background: rgba(97, 218, 251, .12);
+            color: var(--accent);
+            border: 1px solid rgba(97, 218, 251, .25);
+        }
+
+        .btn-edit:hover {
+            background: rgba(97, 218, 251, .25);
+        }
+
+        .btn-cancel {
+            background: rgba(255, 255, 255, .06);
+            color: var(--muted);
+            border: 1px solid var(--border);
+        }
+
+        .btn-cancel:hover {
+            background: rgba(255, 255, 255, .12);
+            color: var(--text);
+        }
+
+        .btn-sm {
+            padding: 6px 13px;
+            font-size: 0.8rem;
+        }
+
+        /* PROJECTS */
+        .projects-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .project-item {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 16px 18px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            transition: border-color .2s;
+        }
+
+        .project-item:hover {
+            border-color: rgba(97, 218, 251, .35);
+        }
+
+        .project-item.dragging {
+            opacity: .4;
+        }
+
+        .drag-handle {
+            color: var(--muted);
+            cursor: grab;
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+
+        .drag-handle:active {
+            cursor: grabbing;
+        }
+
+        .project-thumb {
+            width: 58px;
+            height: 58px;
+            border-radius: 10px;
+            object-fit: cover;
+            border: 1px solid var(--border);
+            flex-shrink: 0;
+        }
+
+        .project-thumb-ph {
+            width: 58px;
+            height: 58px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, .05);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--muted);
+            font-size: 1.3rem;
+            flex-shrink: 0;
+        }
+
+        .project-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .project-info h3 {
+            font-size: .95rem;
+            color: var(--accent2);
+            margin-bottom: 3px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .project-info p {
+            font-size: .78rem;
+            color: var(--muted);
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .project-meta {
+            margin-top: 4px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+        }
+
+        .badge {
+            background: rgba(97, 218, 251, .1);
+            color: var(--accent);
+            border-radius: 6px;
+            padding: 1px 7px;
+            font-size: .7rem;
+        }
+
+        .badge-warn {
+            background: rgba(251, 191, 36, .1);
+            color: var(--warn);
+        }
+
+        .project-actions {
+            display: flex;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--muted);
+        }
+
+        .empty-state i {
+            font-size: 3rem;
+            margin-bottom: 16px;
+            opacity: .4;
+            display: block;
+        }
+
+        /* MODAL */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, .75);
+            backdrop-filter: blur(4px);
+            z-index: 100;
+            align-items: flex-start;
+            justify-content: center;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .modal-overlay.open {
+            display: flex;
+        }
+
+        .modal {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 26px;
+            width: 100%;
+            max-width: 600px;
+            margin: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 22px;
+        }
+
+        .modal-header h2 {
+            font-size: 1.2rem;
+            color: var(--accent);
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: var(--muted);
+            font-size: 1.4rem;
+            cursor: pointer;
+            transition: color .2s;
+        }
+
+        .modal-close:hover {
+            color: var(--text);
+        }
+
+        /* FORM */
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: .82rem;
+            color: var(--muted);
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
+
+        .form-group input[type=text],
+        .form-group input[type=url],
+        .form-group textarea {
+            width: 100%;
+            background: rgba(255, 255, 255, .05);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            color: var(--text);
+            padding: 9px 13px;
+            font-size: .88rem;
+            font-family: inherit;
+            outline: none;
+            transition: border-color .2s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: var(--accent);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 75px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 80px 1fr;
+            gap: 12px;
+        }
+
+        /* UPLOAD */
+        .upload-area {
+            border: 2px dashed rgba(97, 218, 251, .3);
+            border-radius: 12px;
+            padding: 18px;
+            text-align: center;
+            cursor: pointer;
+            transition: all .2s;
+            position: relative;
+        }
+
+        .upload-area:hover,
+        .upload-area.drag-over {
+            border-color: var(--accent);
+            background: rgba(97, 218, 251, .05);
+        }
+
+        .upload-area input {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .upload-area i {
+            font-size: 1.6rem;
+            color: var(--accent);
+            margin-bottom: 6px;
+        }
+
+        .upload-area p {
+            font-size: .82rem;
+            color: var(--muted);
+        }
+
+        .images-preview {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .img-wrap {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            aspect-ratio: 1;
+        }
+
+        .img-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .img-rm {
+            position: absolute;
+            top: 3px;
+            right: 3px;
+            background: rgba(0, 0, 0, .7);
+            color: var(--danger);
+            border: none;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 11px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background .2s;
+        }
+
+        .img-rm:hover {
+            background: rgba(248, 113, 113, .4);
+        }
+
+        /* FEATURES */
+        .features-list {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            margin-top: 6px;
+        }
+
+        .feature-row {
+            display: flex;
+            gap: 7px;
+        }
+
+        .feature-row input {
+            flex: 1;
+            background: rgba(255, 255, 255, .05);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text);
+            padding: 7px 11px;
+            font-size: .85rem;
+            outline: none;
+            transition: border-color .2s;
+        }
+
+        .feature-row input:focus {
+            border-color: var(--accent);
+        }
+
+        .feature-row button {
+            background: none;
+            border: none;
+            color: var(--danger);
+            cursor: pointer;
+            font-size: .95rem;
+            padding: 5px 8px;
+            border-radius: 6px;
+            transition: background .2s;
+        }
+
+        .feature-row button:hover {
+            background: rgba(248, 113, 113, .15);
+        }
+
+        .add-feat {
+            background: none;
+            border: 1px dashed rgba(97, 218, 251, .3);
+            border-radius: 8px;
+            color: var(--accent);
+            padding: 6px 12px;
+            cursor: pointer;
+            font-size: .8rem;
+            transition: all .2s;
+            margin-top: 4px;
+        }
+
+        .add-feat:hover {
+            background: rgba(97, 218, 251, .08);
+            border-color: var(--accent);
+        }
+
+        /* TOGGLE */
+        .toggle-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .toggle {
+            position: relative;
+            width: 40px;
+            height: 22px;
+            flex-shrink: 0;
+        }
+
+        .toggle input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            inset: 0;
+            background: rgba(255, 255, 255, .1);
+            border-radius: 22px;
+            cursor: pointer;
+            transition: background .2s;
+        }
+
+        .toggle-slider::before {
+            content: '';
+            position: absolute;
+            left: 3px;
+            top: 3px;
+            width: 16px;
+            height: 16px;
+            background: white;
+            border-radius: 50%;
+            transition: transform .2s;
+        }
+
+        .toggle input:checked+.toggle-slider {
+            background: var(--accent);
+        }
+
+        .toggle input:checked+.toggle-slider::before {
+            transform: translateX(18px);
+        }
+
+        .modal-footer {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            margin-top: 22px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border);
+        }
+
+        /* TOAST */
+        .toast {
+            position: fixed;
+            bottom: 22px;
+            right: 22px;
+            background: #1e293b;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 11px 18px;
+            font-size: .85rem;
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            transform: translateY(80px);
+            opacity: 0;
+            transition: all .3s;
+            z-index: 999;
+            max-width: 300px;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .toast.success {
+            border-color: rgba(74, 222, 128, .4);
+        }
+
+        .toast.success i {
+            color: var(--success);
+        }
+
+        .toast.error {
+            border-color: rgba(248, 113, 113, .4);
+        }
+
+        .toast.error i {
+            color: var(--danger);
+        }
+
+        /* CONFIRM */
+        .confirm-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, .7);
+            backdrop-filter: blur(4px);
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .confirm-overlay.open {
+            display: flex;
+        }
+
+        .confirm-box {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 28px;
+            max-width: 340px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .confirm-box i {
+            font-size: 2.3rem;
+            color: var(--danger);
+            margin-bottom: 12px;
+        }
+
+        .confirm-box h3 {
+            margin-bottom: 8px;
+        }
+
+        .confirm-box p {
+            color: var(--muted);
+            font-size: .88rem;
+            margin-bottom: 20px;
+        }
+
+        .confirm-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        @media(max-width:600px) {
+            .modal {
+                padding: 18px;
+            }
+
+            .project-item {
+                flex-wrap: wrap;
+            }
+
+            .project-actions {
+                width: 100%;
+                justify-content: flex-end;
+            }
+
+            .form-row {
+                grid-template-columns: 60px 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- TOP BAR -->
+    <div class="top-bar">
+        <h1><i class="fas fa-layer-group" style="margin-right:8px;opacity:.7"></i>Портфолио — Админ</h1>
+        <div class="top-bar-links">
+            <a href="index.html" target="_blank"><i class="fas fa-external-link-alt"></i> Открыть сайт</a>
+            <button class="btn btn-save" onclick="downloadProjectsJs()"
+                title="Скачать projects.js и добавить в папку, затем запушить в GitHub">
+                <i class="fas fa-download"></i> Сохранить projects.js
+            </button>
+            <button class="btn btn-primary" onclick="openModal()">
+                <i class="fas fa-plus"></i> Добавить проект
+            </button>
+        </div>
+    </div>
+
+    <!-- SAVE BANNER -->
+    <div class="save-banner" id="save-banner">
+        <i class="fas fa-exclamation-triangle"></i>
+        <p>
+            <strong>Есть несохранённые изменения!</strong>
+            <span>Нажми «Сохранить projects.js», замени файл в папке портфолио и запуши в GitHub.</span>
+        </p>
+        <button class="btn btn-save btn-sm" onclick="downloadProjectsJs()">
+            <i class="fas fa-download"></i> Скачать
+        </button>
+    </div>
+
+    <!-- LIST -->
+    <div id="projects-list" class="projects-list"></div>
+
+    <!-- HOW TO -->
+    <div id="howto"
+        style="margin-top:24px; background:rgba(97,218,251,0.05); border:1px solid rgba(97,218,251,0.2); border-radius:14px; padding:18px 20px; font-size:.85rem; color:var(--muted); display:none;">
+        <strong style="color:var(--accent); display:block; margin-bottom:10px;">📋 Как применить изменения на
+            сайте:</strong>
+        <ol style="padding-left:18px; line-height:2;">
+            <li>Нажми кнопку <strong style="color:var(--warn)">«Сохранить projects.js»</strong></li>
+            <li>Файл <code style="background:rgba(255,255,255,.1);padding:1px 6px;border-radius:4px;">projects.js</code>
+                скачается — замени им старый в папке портфолио</li>
+            <li>Сделай <code
+                    style="background:rgba(255,255,255,.1);padding:1px 6px;border-radius:4px;">git add . && git commit -m "update projects" && git push</code>
+            </li>
+            <li>Готово — изменения появятся на сайте! ✅</li>
+        </ol>
+    </div>
+
+    <!-- MODAL -->
+    <div class="modal-overlay" id="modal" onclick="handleOverlayClick(event)">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 id="modal-title"><i class="fas fa-plus-circle" style="margin-right:8px"></i>Добавить проект</h2>
+                <button class="modal-close" onclick="closeModal()"><i class="fas fa-times"></i></button>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Эмодзи</label>
+                    <input type="text" id="f-emoji" placeholder="🚀" style="font-size:1.2rem;text-align:center;"
+                        maxlength="4">
+                </div>
+                <div class="form-group">
+                    <label>Название проекта *</label>
+                    <input type="text" id="f-title" placeholder="Мой проект">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Описание *</label>
+                <textarea id="f-desc" rows="3" placeholder="Что делает этот проект..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Ссылка на проект (URL)</label>
+                <input type="url" id="f-url" placeholder="https://example.com">
+            </div>
+
+            <div class="form-group">
+                <label>Технологии</label>
+                <input type="text" id="f-tech" placeholder="Frontend: HTML | Backend: FastAPI | Hosting: Railway">
+            </div>
+
+            <div class="form-group">
+                <label>Особенности / фичи</label>
+                <div class="features-list" id="features-list"></div>
+                <button class="add-feat" onclick="addFeatureRow()"><i class="fas fa-plus"></i> Добавить пункт</button>
+            </div>
+
+            <div class="form-group">
+                <label>Скриншоты</label>
+                <div class="upload-area" id="upload-area">
+                    <input type="file" id="f-images" accept="image/*" multiple onchange="handleImages(this)">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <p>Нажми или перетащи сюда<br><small style="opacity:.6">PNG, JPG, WebP — до 10 фото</small></p>
+                </div>
+                <div class="images-preview" id="images-preview"></div>
+            </div>
+
+            <div class="form-group">
+                <div class="toggle-row">
+                    <label class="toggle">
+                        <input type="checkbox" id="f-featured">
+                        <span class="toggle-slider"></span>
+                    </label>
+                    <div>
+                        <div style="font-size:.86rem;font-weight:600">⭐ Выделенный проект</div>
+                        <div style="font-size:.76rem;color:var(--muted)">Синяя рамка, крупный вид</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-cancel" onclick="closeModal()">Отмена</button>
+                <button class="btn btn-primary" onclick="saveProject()"><i class="fas fa-save"></i> Сохранить</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- CONFIRM -->
+    <div class="confirm-overlay" id="confirm-overlay">
+        <div class="confirm-box">
+            <i class="fas fa-trash-alt"></i>
+            <h3>Удалить проект?</h3>
+            <p id="confirm-text">Это действие нельзя отменить.</p>
+            <div class="confirm-actions">
+                <button class="btn btn-cancel" onclick="closeConfirm()">Отмена</button>
+                <button class="btn btn-danger" onclick="confirmDelete()">Удалить</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST -->
+    <div class="toast" id="toast">
+        <i id="toast-icon" class="fas fa-check-circle"></i>
+        <span id="toast-msg"></span>
+    </div>
+
+    <script>
+        // ── DATA ─────────────────────────────────────────────────────
+        const LS_KEY = 'portfolio_admin_projects';
+
+        function uid() { return 'p' + Date.now().toString(36) + Math.random().toString(36).slice(2, 5); }
+
+        // Load: prefer localStorage draft, fall back to projects.js, then empty
+        function getProjects() {
+            try {
+                const raw = localStorage.getItem(LS_KEY);
+                if (raw) return JSON.parse(raw);
+            } catch (e) { }
+            // Seed from projects.js
+            if (window.PORTFOLIO_PROJECTS && window.PORTFOLIO_PROJECTS.length) {
+                const data = window.PORTFOLIO_PROJECTS.map(p => ({ ...p, id: p.id || uid() }));
+                localStorage.setItem(LS_KEY, JSON.stringify(data));
+                return data;
+            }
+            return [];
+        }
+
+        function setProjects(data) {
+            localStorage.setItem(LS_KEY, JSON.stringify(data));
+            showChangedBanner();
+        }
+
+        // ── STATE ────────────────────────────────────────────────────
+        let editingId = null;
+        let pendingImages = [];
+        let deleteTargetId = null;
+        let hasUnsaved = false;
+
+        // ── UNSAVED BANNER ───────────────────────────────────────────
+        function showChangedBanner() {
+            hasUnsaved = true;
+            document.getElementById('save-banner').classList.add('visible');
+            document.getElementById('howto').style.display = 'block';
+        }
+
+        // ── RENDER ───────────────────────────────────────────────────
+        function render() {
+            const projects = getProjects();
+            const list = document.getElementById('projects-list');
+
+            if (!projects.length) {
+                list.innerHTML = `<div class="empty-state"><i class="fas fa-folder-open"></i><p>Проектов пока нет</p>
+        <button class="btn btn-primary" onclick="openModal()"><i class="fas fa-plus"></i> Добавить первый</button></div>`;
+                return;
+            }
+
+            list.innerHTML = projects.map(p => {
+                const thumb = p.images && p.images.length
+                    ? `<img class="project-thumb" src="${p.images[0]}" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+           <div class="project-thumb-ph" style="display:none"><i class="fas fa-image"></i></div>`
+                    : `<div class="project-thumb-ph"><i class="fas fa-image"></i></div>`;
+
+                return `
+      <div class="project-item" data-id="${p.id}"
+           draggable="true"
+           ondragstart="dragStart(event,'${p.id}')"
+           ondragover="dragOver(event)"
+           ondrop="drop(event,'${p.id}')">
+        <span class="drag-handle"><i class="fas fa-grip-vertical"></i></span>
+        ${thumb}
+        <div class="project-info">
+          <h3>${p.emoji || ''} ${p.title}</h3>
+          <p>${p.description || ''}</p>
+          <div class="project-meta">
+            ${p.featured ? '<span class="badge">⭐ Featured</span>' : ''}
+            ${p.images && p.images.length ? `<span class="badge"><i class="fas fa-images" style="font-size:.6rem"></i> ${p.images.length}</span>` : ''}
+            ${p.url ? '<span class="badge"><i class="fas fa-link" style="font-size:.6rem"></i> Ссылка</span>' : ''}
+          </div>
+        </div>
+        <div class="project-actions">
+          <button class="btn btn-edit btn-sm" onclick="openModal('${p.id}')"><i class="fas fa-pen"></i></button>
+          <button class="btn btn-danger btn-sm" onclick="askDelete('${p.id}','${esc(p.title)}')"><i class="fas fa-trash"></i></button>
+        </div>
+      </div>`;
+            }).join('');
+        }
+
+        function esc(s) { return String(s || '').replace(/'/g, "\\'").replace(/"/g, '&quot;'); }
+
+        // ── MODAL ────────────────────────────────────────────────────
+        function openModal(id) {
+            editingId = id || null;
+            pendingImages = [];
+            const title = document.getElementById('modal-title');
+
+            if (id) {
+                const p = getProjects().find(x => x.id === id);
+                if (!p) return;
+                title.innerHTML = '<i class="fas fa-pen" style="margin-right:8px"></i>Редактировать';
+                document.getElementById('f-emoji').value = p.emoji || '';
+                document.getElementById('f-title').value = p.title || '';
+                document.getElementById('f-desc').value = p.description || '';
+                document.getElementById('f-url').value = p.url || '';
+                document.getElementById('f-tech').value = p.tech || '';
+                document.getElementById('f-featured').checked = !!p.featured;
+                pendingImages = (p.images || []).map(src => ({ src }));
+                renderFeatures(p.features || []);
+            } else {
+                title.innerHTML = '<i class="fas fa-plus-circle" style="margin-right:8px"></i>Добавить проект';
+                ['f-emoji', 'f-title', 'f-desc', 'f-url', 'f-tech'].forEach(id => document.getElementById(id).value = '');
+                document.getElementById('f-featured').checked = false;
+                renderFeatures([]);
+            }
+
+            renderPreviews();
+            document.getElementById('modal').classList.add('open');
+            setTimeout(() => document.getElementById('f-title').focus(), 50);
+        }
+
+        function closeModal() {
+            document.getElementById('modal').classList.remove('open');
+            editingId = null; pendingImages = [];
+        }
+
+        function handleOverlayClick(e) { if (e.target === document.getElementById('modal')) closeModal(); }
+
+        // ── FEATURES ─────────────────────────────────────────────────
+        function renderFeatures(items) {
+            document.getElementById('features-list').innerHTML = '';
+            items.forEach(f => addFeatureRow(f));
+        }
+
+        function addFeatureRow(val = '') {
+            const list = document.getElementById('features-list');
+            const row = document.createElement('div');
+            row.className = 'feature-row';
+            row.innerHTML = `<input type="text" placeholder="Пункт" value="${esc(val)}">
+      <button onclick="this.parentElement.remove()"><i class="fas fa-times"></i></button>`;
+            list.appendChild(row);
+            if (!val) row.querySelector('input').focus();
+        }
+
+        function getFeatures() {
+            return Array.from(document.querySelectorAll('#features-list .feature-row input'))
+                .map(i => i.value.trim()).filter(Boolean);
+        }
+
+        // ── IMAGES ───────────────────────────────────────────────────
+        function handleImages(input) {
+            const files = Array.from(input.files).slice(0, 10 - pendingImages.length);
+            let done = 0;
+            files.forEach(file => {
+                const r = new FileReader();
+                r.onload = e => { pendingImages.push({ src: e.target.result }); done++; if (done === files.length) renderPreviews(); };
+                r.readAsDataURL(file);
+            });
+            input.value = '';
+        }
+
+        function removeImage(i) { pendingImages.splice(i, 1); renderPreviews(); }
+
+        function renderPreviews() {
+            document.getElementById('images-preview').innerHTML = pendingImages.map((img, i) => `
+      <div class="img-wrap">
+        <img src="${img.src}" alt="">
+        <button class="img-rm" onclick="removeImage(${i})"><i class="fas fa-times"></i></button>
+      </div>`).join('');
+        }
+
+        // Drag-drop onto upload area
+        const ua = document.getElementById('upload-area');
+        ua.addEventListener('dragover', e => { e.preventDefault(); ua.classList.add('drag-over'); });
+        ua.addEventListener('dragleave', () => ua.classList.remove('drag-over'));
+        ua.addEventListener('drop', e => {
+            e.preventDefault(); ua.classList.remove('drag-over');
+            const files = Array.from(e.dataTransfer.files).filter(f => f.type.startsWith('image/'));
+            if (files.length) handleImages({ files, value: '' });
+        });
+
+        // ── SAVE PROJECT ─────────────────────────────────────────────
+        function saveProject() {
+            const title = document.getElementById('f-title').value.trim();
+            const desc = document.getElementById('f-desc').value.trim();
+            if (!title) { showToast('Введи название!', 'error'); return; }
+
+            const project = {
+                id: editingId || uid(),
+                emoji: document.getElementById('f-emoji').value.trim() || '📁',
+                title, description: desc,
+                url: document.getElementById('f-url').value.trim(),
+                tech: document.getElementById('f-tech').value.trim(),
+                featured: document.getElementById('f-featured').checked,
+                features: getFeatures(),
+                images: pendingImages.map(i => i.src)
+            };
+
+            const projects = getProjects();
+            if (editingId) { const idx = projects.findIndex(p => p.id === editingId); if (idx > -1) projects[idx] = project; }
+            else projects.push(project);
+
+            setProjects(projects);
+            closeModal();
+            render();
+            showToast(editingId ? 'Проект обновлён!' : 'Проект добавлен!', 'success');
+        }
+
+        // ── DELETE ───────────────────────────────────────────────────
+        function askDelete(id, name) {
+            deleteTargetId = id;
+            document.getElementById('confirm-text').textContent = `Удалить "${name}"? Это нельзя отменить.`;
+            document.getElementById('confirm-overlay').classList.add('open');
+        }
+        function closeConfirm() { deleteTargetId = null; document.getElementById('confirm-overlay').classList.remove('open'); }
+        function confirmDelete() {
+            const projects = getProjects().filter(p => p.id !== deleteTargetId);
+            setProjects(projects);
+            closeConfirm(); render();
+            showToast('Проект удалён', 'success');
+        }
+
+        // ── DRAG SORT ────────────────────────────────────────────────
+        let dragId = null;
+        function dragStart(e, id) { dragId = id; e.dataTransfer.effectAllowed = 'move'; }
+        function dragOver(e) { e.preventDefault(); }
+        function drop(e, targetId) {
+            e.preventDefault();
+            if (!dragId || dragId === targetId) return;
+            const projects = getProjects();
+            const fi = projects.findIndex(p => p.id === dragId);
+            const ti = projects.findIndex(p => p.id === targetId);
+            const [moved] = projects.splice(fi, 1);
+            projects.splice(ti, 0, moved);
+            setProjects(projects); render(); dragId = null;
+        }
+
+        // ── DOWNLOAD projects.js ─────────────────────────────────────
+        function downloadProjectsJs() {
+            const projects = getProjects();
+            // Sanitize: remove base64 images warning
+            const hasBase64 = projects.some(p => p.images && p.images.some(s => s.startsWith('data:')));
+
+            const content = `// Файл генерируется автоматически из admin.html
+// Не редактируй вручную — используй admin.html
+${hasBase64 ? '\n// ⚠️  Некоторые изображения хранятся как base64 (загружены через форму).\n// Для лучшей производительности рекомендуется переместить их в папку img/\n' : ''}
+window.PORTFOLIO_PROJECTS = ${JSON.stringify(projects, null, 2)};
+`;
+            const blob = new Blob([content], { type: 'text/javascript' });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'projects.js';
+            a.click();
+            URL.revokeObjectURL(a.href);
+
+            document.getElementById('save-banner').classList.remove('visible');
+            hasUnsaved = false;
+            showToast('projects.js скачан! Замени файл в папке и запуши в GitHub ✅', 'success');
+        }
+
+        // ── TOAST ────────────────────────────────────────────────────
+        let toastTimer;
+        function showToast(msg, type = 'success') {
+            const t = document.getElementById('toast');
+            document.getElementById('toast-msg').textContent = msg;
+            document.getElementById('toast-icon').className = type === 'success' ? 'fas fa-check-circle' : 'fas fa-exclamation-circle';
+            t.className = 'toast ' + type + ' show';
+            clearTimeout(toastTimer);
+            toastTimer = setTimeout(() => t.classList.remove('show'), 3200);
+        }
+
+        // ── KEYBOARD ─────────────────────────────────────────────────
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape') { closeModal(); closeConfirm(); }
+        });
+
+        // ── INIT ─────────────────────────────────────────────────────
+        render();
+    </script>
+</body>
+
+</html>
