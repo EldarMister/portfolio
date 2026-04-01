@@ -58,6 +58,62 @@ h1 {
     border: 1px solid rgba(97, 218, 251, 0.3);
 }
 
+.about-text {
+    margin-top: 28px;
+    text-align: left;
+    max-width: 720px;
+    margin-left: auto;
+    margin-right: auto;
+    background: rgba(97, 218, 251, 0.04);
+    border: 1px solid rgba(97, 218, 251, 0.15);
+    border-radius: 14px;
+    padding: 22px 28px;
+}
+
+.about-text > p {
+    font-size: 0.95rem;
+    color: #cbd5e1;
+    margin-bottom: 12px;
+    line-height: 1.7;
+}
+
+.about-text ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 14px 0;
+}
+
+.about-text ul li {
+    font-size: 0.9rem;
+    color: #94a3b8;
+    padding: 5px 0 5px 18px;
+    position: relative;
+    line-height: 1.6;
+}
+
+.about-text ul li::before {
+    content: "→";
+    color: var(--primary-color);
+    position: absolute;
+    left: 0;
+    font-size: 0.8rem;
+}
+
+.about-approach {
+    font-size: 0.92rem !important;
+    color: #f8fafc !important;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    padding-top: 12px !important;
+    margin-top: 4px;
+    margin-bottom: 6px !important;
+}
+
+.about-clients {
+    font-size: 0.88rem !important;
+    color: #64748b !important;
+    margin-bottom: 0 !important;
+}
+
 .section {
     margin-top: 40px;
 }

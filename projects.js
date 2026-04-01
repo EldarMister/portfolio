@@ -29,6 +29,29 @@ window.PORTFOLIO_PROJECTS = [
     ]
   },
   {
+    "id": "p-more",
+    "emoji": "👗",
+    "title": "More IS — Fashion E-Commerce",
+    "featured": false,
+    "description": "Адаптивная главная страница fashion e-commerce проекта в luxury-стилистике. Интерфейс разработан с упором на точную передачу визуального стиля бренда: крупный hero-блок, clean typography, gallery-based product presentation и плавные анимации.",
+    "features": [
+      "Hero-слайдер с плавными переходами",
+      "Интерактивные product cards с hover-галереей",
+      "Drawer-корзина с анимацией",
+      "Адаптивное мобильное меню",
+      "Mobile swipe для карточек товаров",
+      "Mobile-first адаптация под desktop и mobile",
+      "Кастомные секции в luxury-стилистике",
+      "Работа с локальными image assets"
+    ],
+    "tech": "Stack: HTML5 &nbsp;|&nbsp; Styling: CSS3 (Vanilla) &nbsp;|&nbsp; Logic: JavaScript (Vanilla) &nbsp;|&nbsp; Hosting: Netlify",
+    "url": "https://moreis.netlify.app/",
+    "images": [
+      "img/more.png", "img/more1.png", "img/more2.png",
+      "img/more3.png", "img/more4.png", "img/more5.png"
+    ]
+  },
+  {
     "id": "p1",
     "emoji": "🚀",
     "title": "Jardamchy GO",

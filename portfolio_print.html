@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Портфолио — Эльдар</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #1f2937;
+            line-height: 1.55;
+            background: #ffffff;
+            padding: 48px 60px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        /* ─── HEADER ─── */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 30px;
+            padding-bottom: 24px;
+            border-bottom: 3px solid #111827;
+        }
+        .header-left h1 {
+            font-size: 36px;
+            font-weight: 700;
+            color: #111827;
+            line-height: 1.1;
+        }
+        .header-left .role {
+            font-size: 16px;
+            color: #4b5563;
+            margin-top: 6px;
+            font-weight: 500;
+        }
+        .header-right {
+            text-align: right;
+            font-size: 14px;
+            color: #4b5563;
+            line-height: 2;
+        }
+        .header-right a {
+            color: #2563eb;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 16px;
+        }
+        .tag {
+            background: #f1f5f9;
+            border: 1px solid #cbd5e1;
+            border-radius: 20px;
+            padding: 3px 12px;
+            font-size: 12px;
+            font-weight: 500;
+            color: #334155;
+        }
+
+        /* ─── SECTION TITLE ─── */
+        h2 {
+            font-size: 20px;
+            font-weight: 700;
+            color: #111827;
+            margin: 36px 0 18px;
+            padding-left: 12px;
+            border-left: 4px solid #2563eb;
+        }
+
+        /* ─── SKILLS ─── */
+        .skills-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .skill-item {
+            font-size: 14px;
+            color: #374151;
+            background: #f9fafb;
+            padding: 8px 14px;
+            border-radius: 6px;
+            border: 1px solid #e5e7eb;
+        }
+        .skill-item strong {
+            color: #111827;
+        }
+
+        /* ─── PROJECT CARD ─── */
+        .project {
+            margin-bottom: 36px;
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
+
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 8px;
+        }
+
+        .project h3 {
+            font-size: 20px;
+            font-weight: 700;
+            color: #111827;
+        }
+
+        .project-link {
+            font-size: 13px;
+            color: #2563eb;
+            text-decoration: none;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .project-desc {
+            font-size: 14px;
+            color: #374151;
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+
+        .features-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: #1f2937;
+            margin: 10px 0 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .features {
+            padding-left: 18px;
+            margin-bottom: 10px;
+        }
+        .features li {
+            font-size: 13px;
+            color: #4b5563;
+            margin-bottom: 4px;
+        }
+
+        .tech-badge {
+            display: inline-block;
+            font-size: 12px;
+            color: #1d4ed8;
+            font-weight: 600;
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            padding: 5px 12px;
+            border-radius: 4px;
+            margin-top: 6px;
+            margin-bottom: 14px;
+        }
+
+        /* ─── GALLERY ─── */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-top: 12px;
+        }
+        .gallery.gallery-wide {
+            grid-template-columns: repeat(4, 1fr);
+        }
+        .gallery img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 6px;
+            border: 1px solid #e5e7eb;
+            display: block;
+        }
+        .gallery.gallery-wide img {
+            height: 180px;
+        }
+
+        /* ─── DIVIDER ─── */
+        .project-divider {
+            border: none;
+            border-top: 1px solid #e5e7eb;
+            margin: 8px 0 30px;
+        }
+
+        /* ─── FOOTER ─── */
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #e5e7eb;
+            text-align: center;
+            font-size: 13px;
+            color: #6b7280;
+        }
+
+        /* ─── PRINT ─── */
+        @media print {
+            body { padding: 0; max-width: 100%; }
+            a { color: #1d4ed8 !important; }
+            .gallery img { border: 1px solid #ccc; }
+            @page { margin: 1.5cm; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <div class="header">
+        <div class="header-left">
+            <h1>Эльдар</h1>
+            <div class="role">Frontend &amp; Backend Developer (React / React Native)</div>
+            <div class="tags">
+                <span class="tag">#JavaScript</span>
+                <span class="tag">#ReactJS</span>
+                <span class="tag">#Python</span>
+                <span class="tag">#FastAPI</span>
+                <span class="tag">#PostgreSQL</span>
+                <span class="tag">#Telegram Bot</span>
+                <span class="tag">#WhatsApp Bot</span>
+                <span class="tag">#Website</span>
+            </div>
+        </div>
+        <div class="header-right">
+            <div><a href="https://t.me/eldar0706">Telegram: @eldar0706</a></div>
+            <div><a href="https://github.com/EldarMister">GitHub: EldarMister</a></div>
+            <div>Опыт разработки: 1 год</div>
+        </div>
+    </div>
+
+    <!-- SKILLS -->
+    <h2>⚒ Навыки</h2>
+    <div class="skills-grid">
+        <div class="skill-item"><strong>FrontEnd:</strong> HTML, CSS, JS, React.js, Tailwind CSS</div>
+        <div class="skill-item"><strong>BackEnd:</strong> Python, FastAPI, PostgreSQL, Интеграция AI (Telegram/WhatsApp боты, сайты)</div>
+        <div class="skill-item"><strong>Tools &amp; Деплой:</strong> Git, Vercel, REST API, Railway</div>
+    </div>
+
+    <!-- PROJECTS -->
+    <h2>💼 Выполненные проекты</h2>
+
+    <!-- 1. AVT -->
+    <div class="project">
+        <div class="project-header">
+            <h3>🚗 AVT — Auto V Korea</h3>
+            <a class="project-link" href="https://avt-autovtrade.com/">avt-autovtrade.com ↗</a>
+        </div>
+        <p class="project-desc">Полнофункциональная веб-платформа для продажи и подбора автомобилей из Южной Кореи с интеграцией с площадкой Encar. Рабочий инструмент для посредников и команд, которые регулярно подбирают и выкупают автомобили в Корее.</p>
+        <div class="features-title">Особенности</div>
+        <ul class="features">
+            <li>Каталог автомобилей с фото, цветами, приводом, комплектацией, ключами и объёмом двигателя</li>
+            <li>Мультифильтры по марке, топливу, приводу, типу кузова, цвету, году, цене и пробегу</li>
+            <li>Цена одновременно в KRW и USD по живому курсу с кэшем и fallback-источником</li>
+            <li>Парсер Encar: сбор объявлений в локальную базу, нормализация корейских данных</li>
+            <li>Инспекционные отчёты Encar с полным отображением на карточке авто</li>
+            <li>Расчёт итоговой стоимости: курс, комиссия, доставка, погрузка, стоянка, возврат НДС</li>
+            <li>Поиск по марке, модели, VIN, Encar ID и характеристикам</li>
+            <li>Админка: вход по паролю, ручной и плановый парсер, поток логов в реальном времени</li>
+            <li>Ручное создание и редактирование карточек авто, загрузка изображений</li>
+            <li>REST API: каталог, обогащение данных по encar_id, парсинг инспекций</li>
+        </ul>
+        <div class="tech-badge">Frontend: React 19, React Router 7, Vite 7, CSS &nbsp;|&nbsp; Backend: Node.js, Express 5, PostgreSQL &nbsp;|&nbsp; Парсинг: axios, cheerio, iconv-lite &nbsp;|&nbsp; Планировщик: node-cron</div>
+        <div class="gallery gallery-wide">
+            <img src="img/auto.jpg" alt="AVT 1">
+            <img src="img/auto1.jpg" alt="AVT 2">
+            <img src="img/auto2.jpg" alt="AVT 3">
+            <img src="img/auto3.jpg" alt="AVT 4">
+            <img src="img/auto4.jpg" alt="AVT 5">
+            <img src="img/auto5.jpg" alt="AVT 6">
+            <img src="img/auto6.jpg" alt="AVT 7">
+            <img src="img/auto7.jpg" alt="AVT 8">
+            <img src="img/auto8.jpg" alt="AVT 9">
+            <img src="img/auto9.jpg" alt="AVT 10">
+            <img src="img/auto10.jpg" alt="AVT 11">
+            <img src="img/auto11.jpg" alt="AVT 12">
+            <img src="img/auto12.jpg" alt="AVT 13">
+            <img src="img/auto13.jpg" alt="AVT 14">
+        </div>
+    </div>
+    <hr class="project-divider">
+
+    <!-- 2. Jardamchy GO -->
+    <div class="project">
+        <div class="project-header">
+            <h3>🚀 Jardamchy GO</h3>
+        </div>
+        <p class="project-desc">Городской сервис автоматизации — полнофункциональная экосистема для управления городскими услугами.</p>
+        <div class="features-title">Особенности</div>
+        <ul class="features">
+            <li>WhatsApp-бот для клиентов</li>
+            <li>Telegram-бот для исполнителей</li>
+            <li>Web-меню кафе</li>
+            <li>CRM-система (админ-панель)</li>
+            <li>Голосовой ввод</li>
+            <li>AI-обработка (OpenAI)</li>
+            <li>Заказы еды (комиссия 5%)</li>
+            <li>Такси (фикс 10 сом)</li>
+            <li>Груз (20 сом)</li>
+        </ul>
+        <div class="tech-badge">Backend: FastAPI &nbsp;|&nbsp; Database: PostgreSQL &nbsp;|&nbsp; API: Green API, Telegram Bot API, OpenAI API</div>
+        <div class="gallery">
+            <img src="img/bot.jpg" alt="Jardamchy 1">
+            <img src="img/bot1.jpg" alt="Jardamchy 2">
+            <img src="img/bot2.jpg" alt="Jardamchy 3">
+            <img src="img/bot3.jpg" alt="Jardamchy 4">
+            <img src="img/bot4.jpg" alt="Jardamchy 5">
+            <img src="img/bot5.jpg" alt="Jardamchy 6">
+            <img src="img/bot6.jpg" alt="Jardamchy 7">
+            <img src="img/bot7.jpg" alt="Jardamchy 8">
+            <img src="img/bot8.jpg" alt="Jardamchy 9">
+        </div>
+    </div>
+    <hr class="project-divider">
+
+    <!-- 3. Jardamchy Landing -->
+    <div class="project">
+        <div class="project-header">
+            <h3>🌐 Jardamchy GO — Landing Page</h3>
+            <a class="project-link" href="https://jardamchy-production.up.railway.app/">jardamchy-production.up.railway.app ↗</a>
+        </div>
+        <p class="project-desc">Официальный лендинг для городского сервиса автоматизации Jardamchy GO. Современная презентационная страница для привлечения пользователей и партнеров.</p>
+        <div class="features-title">Особенности</div>
+        <ul class="features">
+            <li>Дизайн: Современный и отзывчивый интерфейс на Tailwind CSS</li>
+            <li>Скорость: Оптимизированная загрузка ресурсов</li>
+            <li>Интеграция: Прямые ссылки на WhatsApp и Telegram ботов</li>
+            <li>Deployment: Node.js сервер на Railway</li>
+        </ul>
+        <div class="tech-badge">Frontend: HTML, Tailwind CSS &nbsp;|&nbsp; Backend: Node.js (Express) &nbsp;|&nbsp; Hosting: Railway</div>
+        <div class="gallery">
+            <img src="img/landing.png" alt="Landing 1">
+            <img src="img/landing1.png" alt="Landing 2">
+            <img src="img/landing2.png" alt="Landing 3">
+            <img src="img/landing3.png" alt="Landing 4">
+            <img src="img/landing4.png" alt="Landing 5">
+            <img src="img/landing5.png" alt="Landing 6">
+        </div>
+    </div>
+    <hr class="project-divider">
+
+    <!-- 4. Tamga Landing -->
+    <div class="project">
+        <div class="project-header">
+            <h3>🖨️ Tamga Service — Лендинг</h3>
+            <a class="project-link" href="https://tamga.netlify.app/">tamga.netlify.app ↗</a>
+        </div>
+        <p class="project-desc">Tamga Service — лендинг-сайт для компании цифровых и креативных услуг из города Шамалдуу-Сай, Кыргызстан.</p>
+        <div class="features-title">Особенности</div>
+        <ul class="features">
+            <li>Двуязычный (RU / KY) одностраничник</li>
+            <li>Полиграфия: визитки, баннеры, самоклейка, объёмные буквы, DTF</li>
+            <li>Фото и видео: свадьбы, фотосессии, виньетки, реклама</li>
+            <li>Jardamchy GO блок: WhatsApp-бот с 8 функциями</li>
+            <li>Автоматизация бизнеса: CRM, SaaS, сайты, системы управления</li>
+            <li>Галерея: 6 карточек с модальным окном</li>
+            <li>Контакты: WhatsApp + телефон</li>
+        </ul>
+        <div class="tech-badge">Frontend: HTML, CSS, JavaScript &nbsp;|&nbsp; i18n: RU / KY &nbsp;|&nbsp; Hosting: Netlify</div>
+        <div class="gallery">
+            <img src="img/image.png" alt="Tamga 1">
+            <img src="img/image1.png" alt="Tamga 2">
+            <img src="img/image2.png" alt="Tamga 3">
+            <img src="img/image3.png" alt="Tamga 4">
+            <img src="img/image4.png" alt="Tamga 5">
+            <img src="img/image5.png" alt="Tamga 6">
+        </div>
+    </div>
+    <hr class="project-divider">
+
+    <!-- 5. Tamga CRM -->
+    <div class="project">
+        <div class="project-header">
+            <h3>📊 Тамга Сервис — CRM</h3>
+            <a class="project-link" href="https://tamga-production.up.railway.app/#/login">tamga-production.up.railway.app ↗</a>
+        </div>
+        <p class="project-desc">CRM-система для полиграфии: заказы, склад, сотрудники, инциденты, задачи, уроки и зарплата.</p>
+        <div class="features-title">Особенности</div>
+        <ul class="features">
+            <li>Управление заказами и этапами производства</li>
+            <li>Склад материалов и журнал движений</li>
+            <li>Учет сотрудников и ролей</li>
+            <li>Кадры: смены, инциденты, штрафы</li>
+            <li>Журнал штрафов с фильтрами</li>
+            <li>Задачи сотрудникам: дневные и недельные</li>
+            <li>Уроки: YouTube + фото</li>
+            <li>Зарплата: ежемесячный расчет</li>
+            <li>Директорский дашборд + CSV</li>
+        </ul>
+        <div class="tech-badge">Backend: FastAPI &nbsp;|&nbsp; Database: PostgreSQL &nbsp;|&nbsp; Frontend: Vanilla JS + CSS</div>
+        <div class="gallery">
+            <img src="img/crm.png" alt="CRM 1">
+            <img src="img/crm1.png" alt="CRM 2">
+            <img src="img/crm2.png" alt="CRM 3">
+            <img src="img/crm3.png" alt="CRM 4">
+        </div>
+    </div>
+    <hr class="project-divider">
+
+    <!-- 6. Admin panel -->
+    <div class="project">
+        <div class="project-header">
+            <h3>⚙️ Админ-панель Jardamchy GO</h3>
+        </div>
+        <p class="project-desc">Единый центр управления для мультисервисного агрегатора (Такси, Доставка еды, Портер, Аптеки).</p>
+        <div class="features-title">Особенности</div>
+        <ul class="features">
+            <li>Дашборд и Аналитика: графики KPI</li>
+            <li>Управление заказами: мониторинг всех потоков</li>
+            <li>CRM-система: база водителей, кафе и аптек</li>
+            <li>Управление контентом: редактор menus</li>
+            <li>Финансовый блок: балансы партнеров</li>
+            <li>Маркетинг: система массовых рассылок</li>
+        </ul>
+        <div class="tech-badge">Stack: HTML5 &nbsp;|&nbsp; Styling: CSS3 &nbsp;|&nbsp; Logic: Vanilla JavaScript (SPA)</div>
+        <div class="gallery">
+            <img src="img/admin.png" alt="Admin 1">
+            <img src="img/admin1.png" alt="Admin 2">
+            <img src="img/admin2.png" alt="Admin 3">
+            <img src="img/admin3.png" alt="Admin 4">
+        </div>
+    </div>
+    <hr class="project-divider">
+
+    <!-- 7. TopRider -->
+    <div class="project">
+        <div class="project-header">
+            <h3>🛵 TopRider</h3>
+            <a class="project-link" href="https://6967b977c452530d1521669f--gilded-piroshki-c34b67.netlify.app/">Открыть ↗</a>
+        </div>
+        <p class="project-desc">Интернет-магазин электровелосипедов, самокатов и байков с каталогом, фильтрацией и оформлением заказа через WhatsApp.</p>
+        <div class="features-title">Особенности</div>
+        <ul class="features">
+            <li>Каталог товаров с фото и характеристиками</li>
+            <li>Умный поиск по названию</li>
+            <li>Фильтрация по категориям, цене, бренду</li>
+            <li>Корзина в LocalStorage</li>
+            <li>Быстрый просмотр</li>
+            <li>Оформление заказа через WhatsApp</li>
+            <li>Полная адаптивность</li>
+        </ul>
+        <div class="tech-badge">Stack: HTML &nbsp;|&nbsp; Styling: Tailwind CSS &nbsp;|&nbsp; Logic: JavaScript (Vanilla)</div>
+        <div class="gallery">
+            <img src="img/topriding.png" alt="TopRider 1">
+            <img src="img/topriding1.png" alt="TopRider 2">
+            <img src="img/topriding2.png" alt="TopRider 3">
+            <img src="img/topriding3.png" alt="TopRider 4">
+        </div>
+    </div>
+    <hr class="project-divider">
+
+    <!-- 8. Finance Monitor -->
+    <div class="project">
+        <div class="project-header">
+            <h3>💰 Finance Monitor</h3>
+            <a class="project-link" href="https://finance-three-blush.vercel.app/">finance-three-blush.vercel.app ↗</a>
+        </div>
+        <p class="project-desc">Проект для мониторинга финансов: динамика расходов и доходов, категории и наглядные метрики.</p>
+        <div class="gallery">
+            <img src="img/finance.png" alt="Finance 1">
+            <img src="img/finance1.png" alt="Finance 2">
+            <img src="img/finance2.png" alt="Finance 3">
+            <img src="img/finance3.png" alt="Finance 4">
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+        Эльдар &nbsp;·&nbsp; <a href="https://t.me/eldar0706">@eldar0706</a> &nbsp;·&nbsp; <a href="https://github.com/EldarMister">github.com/EldarMister</a>
+    </div>
+
+</body>
+</html>
