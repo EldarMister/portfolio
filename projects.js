@@ -154,7 +154,9 @@ window.PORTFOLIO_PROJECTS = [
       "img/crm.png",
       "img/crm1.png",
       "img/crm2.png",
-      "img/crm3.png"
+      "img/crm3.png",
+      "img/crm4.png",
+      "img/crm5.png"
     ]
   },
   {
