@@ -29,6 +29,32 @@ window.PORTFOLIO_PROJECTS = [
     ]
   },
   {
+    "id": "p-electron",
+    "emoji": "⚡",
+    "title": "Electron Motors Catalog",
+    "featured": false,
+    "description": "Адаптивный сайт-каталог электромотоциклов Electron Motors. Проект сделан как коммерческий лендинг для презентации моделей, просмотра фотографий и видео, сбора заявок и подбора электробайка под клиента.",
+    "features": [
+      "Главный экран с призывом к подбору электромотоцикла",
+      "Блок о компании и спецпредложение",
+      "Каталог из 15 моделей",
+      "Карточки товаров с фото, описанием и характеристиками",
+      "Полноширинные видео и фотогалереи",
+      "Переключение изображений в галереях",
+      "Форма заявки",
+      "Модальное окно с подробными характеристиками",
+      "Адаптивная версия для мобильных устройств"
+    ],
+    "tech": "Frontend: React, Vite, CSS &nbsp;|&nbsp; Backend: Node.js, Express, PostgreSQL",
+    "url": "https://electronmotors-catalog.ru/",
+    "images": [
+      "img/electro.png",
+      "img/electro1.png",
+      "img/electro2.png",
+      "img/electro3.png"
+    ]
+  },
+  {
     "id": "p-more",
     "emoji": "👗",
     "title": "More IS — Fashion E-Commerce",
@@ -106,32 +132,6 @@ window.PORTFOLIO_PROJECTS = [
     ]
   },
   {
-    "id": "p3",
-    "emoji": "🖨️",
-    "title": "Tamga Service — Лендинг",
-    "featured": false,
-    "description": "Tamga Service — лендинг-сайт для компании цифровых и креативных услуг из города Шамалдуу-Сай, Кыргызстан.",
-    "features": [
-      "Двуязычный (RU / KY) одностраничник",
-      "Полиграфия: визитки, баннеры, самоклейка, объёмные буквы, DTF",
-      "Фото и видео: свадьбы, фотосессии, виньетки, реклама",
-      "Jardamchy GO блок: WhatsApp-бот с 8 функциями",
-      "Автоматизация бизнеса: CRM, SaaS, сайты, системы управления",
-      "Галерея: 6 карточек с модальным окном",
-      "Контакты: WhatsApp + телефон"
-    ],
-    "tech": "Frontend: HTML, CSS, JavaScript &nbsp;|&nbsp; i18n: RU / KY &nbsp;|&nbsp; Hosting: Netlify",
-    "url": "https://tamga.netlify.app/",
-    "images": [
-      "img/image.png",
-      "img/image1.png",
-      "img/image2.png",
-      "img/image3.png",
-      "img/image4.png",
-      "img/image5.png"
-    ]
-  },
-  {
     "id": "p4",
     "emoji": "📊",
     "title": "Тамга Сервис — CRM",
@@ -157,29 +157,6 @@ window.PORTFOLIO_PROJECTS = [
       "img/crm3.png",
       "img/crm4.png",
       "img/crm5.png"
-    ]
-  },
-  {
-    "id": "p5",
-    "emoji": "⚙️",
-    "title": "Админ-панель Jardamchy GO",
-    "featured": false,
-    "description": "Единый центр управления для мультисервисного агрегатора (Такси, Доставка еды, Портер, Аптеки).",
-    "features": [
-      "Дашборд и Аналитика: графики KPI",
-      "Управление заказами: мониторинг всех потоков",
-      "CRM-система: база водителей, кафе и аптек",
-      "Управление контентом: редактор menus",
-      "Финансовый блок: балансы партнеров",
-      "Маркетинг: система массовых рассылок"
-    ],
-    "tech": "Stack: HTML5 &nbsp;|&nbsp; Styling: CSS3 &nbsp;|&nbsp; Logic: Vanilla JavaScript (SPA)",
-    "url": "",
-    "images": [
-      "img/admin.png",
-      "img/admin1.png",
-      "img/admin2.png",
-      "img/admin3.png"
     ]
   },
   {
